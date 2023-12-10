@@ -1,0 +1,7 @@
+db.createCollection("student");
+
+db.student.insert([{Rollno:1,FEE:25000,Class:"TE"},{Rollno:1,FEE:5000,Class:"TE"},{Rollno:2,FEE:8000,Class:"TE"},{Rollno:2,FEE:12000,Class:"TE"},{Rollno:3,FEE:1000,Class:"SE"}]);
+
+db.student.find().pretty();
+
+db.student.mapReduce(function(){emit (this.Rollno,this.FEE);}, function(Rollno,FEE){return Array.sum(FEE)},{query: {Class:"TE"}, out : "Fee_Details" });
